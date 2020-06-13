@@ -10,6 +10,8 @@ class ServerUtil {
     //    어느 객체인지 관계 없이 기능/값만 잘 사용하면 되는 것들을 모아두는 영역
 //    JAVA => static에 대응되는 개념
     companion object {
+        
+//        테스트용 커밋
 
 //        어느 서버로 가야하는지 (HOST 주소) 적어두는 변수
         val BASE_URL = "http://15.165.177.142"
