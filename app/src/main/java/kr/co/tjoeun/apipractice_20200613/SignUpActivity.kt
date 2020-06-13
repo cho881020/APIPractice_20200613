@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.emailEdt
 import kotlinx.android.synthetic.main.activity_sign_up.signUpBtn
@@ -51,10 +50,30 @@ class SignUpActivity : BaseActivity() {
 
 //            입력한 이메일 / 비번 / 닉네임을 들고 서버에 가입 신청
             val email = emailEdt.text.toString()
-            val pw = pwEdt.text.toString()
+            val pw = passwordEdt.text.toString()
             val nickName = nickNameEdt.text.toString()
 
 //            서버에 /user - PUT으로 요청. => ServerUtil을 통해 요청.
+            ServerUtil.putRequestSignUp(mContext, email, pw, nickName, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+
+                    val code = json.getInt("code")
+
+                    if (code == 200) {
+
+                    }
+                    else {
+
+                        val message = json.getString("message")
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                }
+
+            })
 
 
         }
