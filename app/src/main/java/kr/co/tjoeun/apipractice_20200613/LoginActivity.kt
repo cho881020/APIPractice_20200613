@@ -1,5 +1,6 @@
 package kr.co.tjoeun.apipractice_20200613
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,6 +20,10 @@ class LoginActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        signUpBtn.setOnClickListener {
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+        }
 
         loginBtn.setOnClickListener {
             val inputEmail = emailEdt.text.toString()
