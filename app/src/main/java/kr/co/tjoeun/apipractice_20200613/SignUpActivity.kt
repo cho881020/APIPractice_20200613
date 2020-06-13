@@ -2,6 +2,9 @@ package kr.co.tjoeun.apipractice_20200613
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kr.co.tjoeun.apipractice_20200613.utils.ServerUtil
 import org.json.JSONObject
@@ -16,6 +19,41 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        nickNameEdt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                nickNameCheckResultTxt.text = "중복확인을 해주세요."
+            }
+
+        })
+
+        emailEdt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                글자가 변경된 시점에 실행되는 함수
+//                Log.d("변경된내용", s.toString())
+
+//                이메일 중복검사를 하라고 안내
+                emailCheckResultTxt.text = "중복확인을 해주세요."
+
+            }
+
+        })
 
         nickNameCheckBtn.setOnClickListener {
             val inputNick = nickNameEdt.text.toString()
