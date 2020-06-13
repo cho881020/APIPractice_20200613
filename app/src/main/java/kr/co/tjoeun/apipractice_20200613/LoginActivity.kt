@@ -38,14 +38,14 @@ class LoginActivity : BaseActivity() {
                     val codeNum = json.getInt("code")
 
                     if (codeNum == 200) {
-//                        로그인 성공
+//                        로그인 성공 => 로그인 한 사람의 이메일을 그대로 토스트로 출력
 
                         val data = json.getJSONObject("data")
                         val user = data.getJSONObject("user")
-                        val loginUserNickName = user.getString("nick_name")
+                        val email = user.getString("email")
 
                         runOnUiThread {
-                            Toast.makeText(mContext, "${loginUserNickName}님 환영합니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, email, Toast.LENGTH_SHORT).show()
                         }
 
                     }
