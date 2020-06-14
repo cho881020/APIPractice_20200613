@@ -69,6 +69,12 @@ class MainActivity : BaseActivity() {
 //                        topics 배열안에서 { } 를 순서대로 (i) JSONObject로 추출
                         val topicJson = topics.getJSONObject(i)
 
+//                        추출한 JsonObject => Topic 객체로 변환 (클래스에 만든 기능 활용)
+                        val topic = Topic.getTopicFromJson(topicJson)
+
+//                        topicList에 완성된 주제를 추가
+                        topicList.add(topic)
+
                     }
 
                 }
