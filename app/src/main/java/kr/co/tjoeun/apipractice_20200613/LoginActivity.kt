@@ -21,6 +21,13 @@ class LoginActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        autoLoginCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+//            isChecked에는 지금 어떤 상태가 되었는지 Boolean으로 들어옴.
+//            그 값을 ContextUtil로 저장
+
+            ContextUtil.setAutoLogin(mContext, isChecked)
+        }
+
         signUpBtn.setOnClickListener {
             val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
@@ -81,6 +88,9 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+//        자동로그인 여부를 ContextUtil에서 가져와서 체크박스의 체크값으로 설정
+        autoLoginCheckBox.isChecked = ContextUtil.isAutoLogin(mContext)
 
     }
 
