@@ -82,7 +82,6 @@ class LoginActivity : BaseActivity() {
 
             })
 
-
         }
 
     }
