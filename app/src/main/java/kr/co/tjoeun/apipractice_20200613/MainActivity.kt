@@ -93,8 +93,11 @@ class MainActivity : BaseActivity() {
 
                     }
 
+                    runOnUiThread {
 //                    내용물이 추가되었으니 어댑터에게 새로고침
-                    topicAdapter.notifyDataSetChanged()
+                        topicAdapter.notifyDataSetChanged()
+                    }
+
 
                 }
 
