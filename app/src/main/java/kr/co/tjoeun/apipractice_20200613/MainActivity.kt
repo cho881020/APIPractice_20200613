@@ -2,6 +2,8 @@ package kr.co.tjoeun.apipractice_20200613
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kr.co.tjoeun.apipractice_20200613.utils.ServerUtil
+import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
@@ -18,6 +20,11 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 //        서버에서 내 정보를 받아와서 화면에 출력
+        ServerUtil.getRequestMyInfo(mContext, object : ServerUtil.JsonResponseHandler {
+            override fun onResponse(json: JSONObject) {
+
+            }
+        })
 
     }
 
