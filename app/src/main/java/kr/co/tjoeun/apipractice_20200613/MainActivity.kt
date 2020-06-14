@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kr.co.tjoeun.apipractice_20200613.adapters.TopicAdapter
 import kr.co.tjoeun.apipractice_20200613.datas.Topic
 import kr.co.tjoeun.apipractice_20200613.utils.ContextUtil
 import kr.co.tjoeun.apipractice_20200613.utils.ServerUtil
@@ -14,6 +15,8 @@ import org.json.JSONObject
 class MainActivity : BaseActivity() {
 
     val topicList = ArrayList<Topic>()
+
+    lateinit var topicAdapter : TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,9 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
 //        서버에서 토론 주제 목록을 받아와서 리스트뷰의 ArrayList에 채워주기.
         getTopicListFromServer()
+
+        topicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, topicList)
+        topicListView.adapter = topicAdapter
     }
 
     fun getTopicListFromServer() {
@@ -76,6 +82,9 @@ class MainActivity : BaseActivity() {
                         topicList.add(topic)
 
                     }
+
+//                    내용물이 추가되었으니 어댑터에게 새로고침
+                    topicAdapter.notifyDataSetChanged()
 
                 }
 
