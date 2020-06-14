@@ -26,6 +26,56 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        voteToFirstBtn.setOnClickListener {
+
+            ServerUtil.postRequestVote(mContext, mTopic.sides[0].id, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+
+                    val code = json.getInt("code")
+
+                    if (code == 200) {
+                        runOnUiThread {
+                            Toast.makeText(mContext, "참여해주셔서 감사합니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else {
+                        val message = json.getString("message")
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+//                    투표가 끝나면 서버에서 다시 주제 진행 현황을 불러오자.
+                    getTopicDataFromServer()
+                }
+
+            })
+        }
+
+        voteToSecondBtn.setOnClickListener {
+            ServerUtil.postRequestVote(mContext, mTopic.sides[1].id, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+                    val code = json.getInt("code")
+
+                    if (code == 200) {
+                        runOnUiThread {
+                            Toast.makeText(mContext, "참여해주셔서 감사합니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else {
+                        val message = json.getString("message")
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+//                    투표가 끝나면 서버에서 다시 주제 진행 현황을 불러오자.
+                    getTopicDataFromServer()
+                }
+
+            })
+        }
+
     }
 
     override fun setValues() {
@@ -39,7 +89,13 @@ class ViewTopicDetailActivity : BaseActivity() {
         }
 
         Log.d("넘겨받은 주제 id", mTopicId.toString())
-        
+
+        getTopicDataFromServer()
+
+    }
+
+    fun getTopicDataFromServer() {
+
 //        넘겨 받은 id값으로 서버에서 주제의 상세 진행 상황 받아오기
         ServerUtil.getRequestTopicDetail(mContext, mTopicId, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(json: JSONObject) {
@@ -74,7 +130,6 @@ class ViewTopicDetailActivity : BaseActivity() {
 
             }
         })
-
     }
 
 }
