@@ -56,6 +56,23 @@ class MainActivity : BaseActivity() {
         ServerUtil.getRequestV2MainInfo(mContext, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(json: JSONObject) {
 
+                val code = json.getInt("code")
+
+                if (code == 200) {
+                    val data = json.getJSONObject("data")
+
+//                    JSONArray 추출 =>  [  ] 를 가져와야하므로.
+                    val topics = data.getJSONArray("topics")
+
+//                    JSON Object들을 차례대로 추출 반복문
+                    for (i in 0..topics.length()-1) {
+//                        topics 배열안에서 { } 를 순서대로 (i) JSONObject로 추출
+                        val topicJson = topics.getJSONObject(i)
+
+                    }
+
+                }
+
             }
 
         })
