@@ -17,6 +17,11 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="#AA000000"/>
+
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -27,6 +32,8 @@
                 android:id="@+id/topicTitleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
                 android:text="주제 제목 자리" />
 
         </LinearLayout>
