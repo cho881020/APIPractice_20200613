@@ -18,7 +18,8 @@ class TopicReply {
 //            User클래스가 Json을 받아서 => User로 변환해서 리턴.
 //            tr.user에 대입
 
-//            tr.user = ??
+            val userJson = json.getJSONObject("user")
+            tr.user = User.getUserFromJson(userJson)
 
             return tr
         }

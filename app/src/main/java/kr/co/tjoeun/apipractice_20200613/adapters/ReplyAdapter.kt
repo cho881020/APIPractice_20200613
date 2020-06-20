@@ -37,6 +37,7 @@ class ReplyAdapter(
 
 //        데이터 / 뷰 연결 => 알고리즘
 
+        writerNickNameTxt.text = data.user.nickName
         contentTxt.text = data.content
 
         return row
