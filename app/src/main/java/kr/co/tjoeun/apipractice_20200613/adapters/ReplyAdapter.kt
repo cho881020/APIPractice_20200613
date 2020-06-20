@@ -100,6 +100,9 @@ class ReplyAdapter(
                     data.likeCount = reply.getInt("like_count")
                     data.dislikeCount = reply.getInt("dislike_count")
 
+                    data.isMyLike = reply.getBoolean("my_like")
+                    data.isMyDislike = reply.getBoolean("my_dislike")
+
                     Handler(Looper.getMainLooper()).post {
                         notifyDataSetChanged()
                     }
@@ -122,6 +125,10 @@ class ReplyAdapter(
 
                     data.likeCount = likeCount
                     data.dislikeCount = dislikeCount
+
+
+                    data.isMyLike = reply.getBoolean("my_like")
+                    data.isMyDislike = reply.getBoolean("my_dislike")
 
                     Handler(Looper.getMainLooper()).post {
                         notifyDataSetChanged()
