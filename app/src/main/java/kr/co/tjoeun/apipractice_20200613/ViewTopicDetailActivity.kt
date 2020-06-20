@@ -112,9 +112,19 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         Log.d("넘겨받은 주제 id", mTopicId.toString())
 
-        getTopicDataFromServer()
+//        onCreate의 하위 기능인 setValues에서는 서버 통신 X
+//        getTopicDataFromServer()
 
     }
+
+//    화면이 매번 등장하는 시점인 onResume에서 등장할때마다 서버에 진행현황 요청
+//    자동 새로고침 구현 사례
+
+    override fun onResume() {
+        super.onResume()
+        getTopicDataFromServer()
+    }
+
 
     fun getTopicDataFromServer() {
 
