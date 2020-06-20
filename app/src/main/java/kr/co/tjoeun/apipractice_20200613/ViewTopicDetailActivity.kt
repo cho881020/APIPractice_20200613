@@ -32,9 +32,18 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         replyBtn.setOnClickListener {
 
-            val myIntent = Intent(mContext, EditReplyActivity::class.java)
-            myIntent.putExtra("topicTitle", mTopic.title)
-            startActivity(myIntent)
+            mTopic.mySelectedSide?.let {
+                val myIntent = Intent(mContext, EditReplyActivity::class.java)
+                myIntent.putExtra("topicTitle", mTopic.title)
+                myIntent.putExtra("selectedSideTitle", it.title)
+                startActivity(myIntent)
+            }.let {
+                if (it == null) {
+//                  mySelectedSide가 null인 경우 => 투표를 아직 안한 경우
+                    Toast.makeText(mContext, "맘에 드는 진영을 선택해야 의견을 남길 수 있습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
 
         }
 
