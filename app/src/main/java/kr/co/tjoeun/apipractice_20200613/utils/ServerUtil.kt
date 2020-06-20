@@ -240,6 +240,39 @@ class ServerUtil {
 
         }
 
+        fun postRequestReplyLikeOrDislike(context: Context, replyId:Int, isLike:Boolean, handler:JsonResponseHandler?) {
+
+            val client = OkHttpClient()
+
+            val urlString = "${BASE_URL}/topic_reply_like"
+
+            val formData = FormBody.Builder()
+                .add("reply_id", replyId.toString())
+                .add("is_like", isLike.toString())
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))  // API가 헤더를 요구하면 여기서 첨부하자
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+                    handler?.onResponse(json)
+
+                }
+
+            })
+
+        }
+
         fun postRequestReply(context: Context, topicId: Int, content:String, handler:JsonResponseHandler?) {
 
             val client = OkHttpClient()
