@@ -1,6 +1,7 @@
 package kr.co.tjoeun.apipractice_20200613.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import kr.co.tjoeun.apipractice_20200613.R
+import kr.co.tjoeun.apipractice_20200613.ViewReplyDetailActivity
 import kr.co.tjoeun.apipractice_20200613.datas.TopicReply
 import kr.co.tjoeun.apipractice_20200613.utils.ServerUtil
 import org.json.JSONObject
@@ -90,6 +92,13 @@ class ReplyAdapter(
 
         }
 
+//        답글 버튼 눌림 처리
+        replyBtn.setOnClickListener {
+            val myIntent = Intent(mContext, ViewReplyDetailActivity::class.java)
+//            어댑터에서 직접 startActivity 불가.
+//            mContext의 도움을 받아서 실행
+            mContext.startActivity(myIntent)
+        }
 
 //        좋아요 / 싫어요 이벤트 처리
         likeBtn.setOnClickListener {
