@@ -97,6 +97,7 @@ class ReplyAdapter(
             val myIntent = Intent(mContext, ViewReplyDetailActivity::class.java)
 //            어댑터에서 직접 startActivity 불가.
 //            mContext의 도움을 받아서 실행
+            myIntent.putExtra("reply_id", data.id)
             mContext.startActivity(myIntent)
         }
 

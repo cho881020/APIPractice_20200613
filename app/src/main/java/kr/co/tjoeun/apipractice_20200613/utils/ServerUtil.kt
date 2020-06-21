@@ -98,7 +98,7 @@ class ServerUtil {
 
         }
 
-//        원하는 주제의 상세정보 보기 => 몇번주제? 화면에서 받아와야함
+        //        원하는 주제의 상세정보 보기 => 몇번주제? 화면에서 받아와야함
         fun getRequestTopicDetail(context: Context, topicId:Int, handler: JsonResponseHandler?) {
 
             val client = OkHttpClient()
@@ -107,6 +107,43 @@ class ServerUtil {
 //          4번주제? /topic/4  , 2번? /topic/2
 
             val urlBuilder = "${BASE_URL}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()
+//            urlBuilder.addEncodedQueryParameter("type", checkType)
+//            urlBuilder.addEncodedQueryParameter("value", inputVal)
+
+            val urlString = urlBuilder.build().toString()
+            Log.d("완성된주소", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getUserToken(context)) // 헤더를 요구하면 추가
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+                    handler?.onResponse(json)
+
+                }
+
+            })
+
+        }
+
+        //        원하는 의견의 상세정보 보기
+        fun getRequestReplyDetail(context: Context, replyId:Int, handler: JsonResponseHandler?) {
+
+            val client = OkHttpClient()
+
+
+//          4번의견? /topic_reply/4  , 2번? /topic_reply/2
+
+            val urlBuilder = "${BASE_URL}/topic_reply/${replyId}".toHttpUrlOrNull()!!.newBuilder()
 //            urlBuilder.addEncodedQueryParameter("type", checkType)
 //            urlBuilder.addEncodedQueryParameter("value", inputVal)
 
