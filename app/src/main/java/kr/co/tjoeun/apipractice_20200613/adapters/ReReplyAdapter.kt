@@ -82,6 +82,62 @@ class ReReplyAdapter(
         }
 
 
+
+//        좋아요 / 싫어요 이벤트 처리
+        likeBtn.setOnClickListener {
+//            좋아요 API 호출 => 좋아요 누르기 / 취소 처리
+
+            ServerUtil.postRequestReplyLikeOrDislike(mContext, data.id, true, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+
+                    val dataObj = json.getJSONObject("data")
+                    val reply = dataObj.getJSONObject("reply")
+
+                    data.likeCount = reply.getInt("like_count")
+                    data.dislikeCount = reply.getInt("dislike_count")
+
+                    data.isMyLike = reply.getBoolean("my_like")
+                    data.isMyDislike = reply.getBoolean("my_dislike")
+
+                    Handler(Looper.getMainLooper()).post {
+                        notifyDataSetChanged()
+                    }
+                }
+            })
+
+        }
+
+        dislikeBtn.setOnClickListener {
+
+//            싫어요 버튼 처리 진행 => 좋아요를 참고해서 진행
+            ServerUtil.postRequestReplyLikeOrDislike(mContext, data.id, false, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+
+                    val dataObj = json.getJSONObject("data")
+                    val reply = dataObj.getJSONObject("reply")
+
+                    val likeCount = reply.getInt("like_count")
+                    val dislikeCount = reply.getInt("dislike_count")
+
+                    data.likeCount = likeCount
+                    data.dislikeCount = dislikeCount
+
+
+                    data.isMyLike = reply.getBoolean("my_like")
+                    data.isMyDislike = reply.getBoolean("my_dislike")
+
+                    Handler(Looper.getMainLooper()).post {
+                        notifyDataSetChanged()
+                    }
+
+
+                }
+
+            })
+
+        }
+
+
         return row
     }
 
