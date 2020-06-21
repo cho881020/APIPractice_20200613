@@ -28,6 +28,23 @@ class ViewReplyDetailActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        postReReplyBtn.setOnClickListener {
+            val content = reReplyContentEdt.text.toString()
+
+//            답글 등록 API 찾아보기 활용법 숙지
+
+//            답글 등록 성공시 => 리스트뷰의 내용 새로고침
+//            서버에서 다시 답글 목록을 받아와서 추가
+
+            ServerUtil.postRequestReReply(mContext, mReplyId, content, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+
+                }
+            })
+
+
+        }
+
     }
 
     override fun setValues() {
