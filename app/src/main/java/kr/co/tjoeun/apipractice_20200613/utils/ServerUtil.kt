@@ -172,6 +172,42 @@ class ServerUtil {
 
         }
 
+
+        //        원하는 의견/답글 삭제하기
+        fun deleteRequestReply(context: Context, replyId:Int, handler: JsonResponseHandler?) {
+
+            val client = OkHttpClient()
+
+            val urlBuilder = "${BASE_URL}/topic_reply".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedQueryParameter("reply_id", replyId.toString())
+//            urlBuilder.addEncodedQueryParameter("value", inputVal)
+
+            val urlString = urlBuilder.build().toString()
+            Log.d("완성된주소", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .delete()
+                .header("X-Http-Token", ContextUtil.getUserToken(context)) // 헤더를 요구하면 추가
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+                    handler?.onResponse(json)
+
+                }
+
+            })
+
+        }
+
+
         fun getRequestV2MainInfo(context: Context, handler: JsonResponseHandler?) {
 
             val client = OkHttpClient()
