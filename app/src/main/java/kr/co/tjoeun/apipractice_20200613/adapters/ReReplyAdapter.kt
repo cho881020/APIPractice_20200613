@@ -47,6 +47,10 @@ class ReReplyAdapter(
 
 //        데이터 / 뷰 연결 => 알고리즘
 
+        writerNickNameTxt.text = data.user.nickName
+        selectedSideTitleTxt.text = "(${data.selectedSide.title})"
+        contentTxt.text = data.content
+
         return row
     }
 
