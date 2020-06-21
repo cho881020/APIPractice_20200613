@@ -51,6 +51,37 @@ class ReReplyAdapter(
         selectedSideTitleTxt.text = "(${data.selectedSide.title})"
         contentTxt.text = data.content
 
+//        좋아요 / 싫어요 버튼 관련 표시
+//        몇명이 좋아요 ? 숫자 표시
+        likeBtn.text = "좋아요 : ${data.likeCount}"
+        dislikeBtn.text = "싫어요 : ${data.dislikeCount}"
+
+//        내 좋아요 여부에 따라 모양 변경
+        if (data.isMyLike) {
+            likeBtn.setBackgroundResource(R.drawable.red_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.red))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.darkGray))
+
+        }
+        else if (data.isMyDislike) {
+            likeBtn.setBackgroundResource(R.drawable.gray_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.blue_border_box)
+
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.darkGray))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.blue))
+        }
+        else {
+            likeBtn.setBackgroundResource(R.drawable.gray_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.darkGray))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.darkGray))
+        }
+
+
         return row
     }
 
